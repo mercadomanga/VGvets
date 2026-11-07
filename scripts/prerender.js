@@ -14,7 +14,7 @@ ld:{'@context':'https://schema.org','@graph':[{'@type':'WebSite','@id':'https://
 mainEntity:{'@type':'ItemList',name:'Game studios founded by industry veterans',numberOfItems:D.length,itemListElement:items}}]}}});
 const ctx=await b.newContext({javaScriptEnabled:false});const st=await ctx.newPage();await st.goto(url);
 const html=await st.evaluate(r=>{document.getElementById('grid').innerHTML=r.grid;document.getElementById('cap-big').innerHTML=r.cap;document.getElementById('ms-big').innerHTML=r.ms;
-let s=document.querySelector('script[type="application/ld+json"]');if(!s){s=document.createElement('script');s.type='application/ld+json';document.head.appendChild(s)}
+let s=document.querySelector('script[type="application/ld+json"]');if(!s)s=document.createElement('script');s.type='application/ld+json';document.body.appendChild(s);
 s.textContent=JSON.stringify(r.ld);return '<!doctype html>'+document.documentElement.outerHTML},r);
 await b.close();fs.writeFileSync(f,html);
 const sm=path.join(path.dirname(f),'sitemap.xml');if(fs.existsSync(sm))fs.writeFileSync(sm,fs.readFileSync(sm,'utf8').replace(/<lastmod>[^<]*<\/lastmod>/,'<lastmod>'+r.upd+'</lastmod>'));
