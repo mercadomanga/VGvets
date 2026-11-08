@@ -2,7 +2,7 @@ const {chromium}=require('playwright');const fs=require('fs');const path=require
 (async()=>{const f=path.resolve(process.argv[2]||'public/index.html');const url='file://'+f;
 const b=await chromium.launch();
 const live=await b.newPage({viewport:{width:1280,height:900}});await live.goto(url);await live.waitForTimeout(500);
-const r=await live.evaluate(()=>{document.querySelectorAll('#f-orig select').forEach(s=>s.value='');
+const r=await live.evaluate(()=>{document.querySelectorAll('#f-orig select,#f-own select').forEach(s=>s.value='');
 const items=D.map((d,i)=>{const o={'@type':'Organization',name:d.n,description:(K[d.n]?'Known for '+K[d.n]+'. ':'')+'Founded by '+d.who+'. Background: '+d.ped+'.'};
 if(d.y)o.foundingDate=String(d.y);if(d.loc&&d.loc!=='n/a')o.location=d.loc;if(W[d.n]&&W[d.n][1]==='website')o.url=W[d.n][0];
 o.founder=d.who.split(/,\s*(?![^()]*\))/).map(x=>x.replace(/\s*\(.*?\)\s*/g,'').replace(/†.*$/,'').trim()).filter(Boolean).map(n=>({'@type':'Person',name:n}));
